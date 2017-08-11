@@ -6,14 +6,22 @@ const app = express()
 // GraphQL schema language
 const schema = buildSchema (`
     type Query {
-        hello: String
+        quoteOfTheDay: String,
+        random: Float!,
+        rollTwoDice: [Int]
     }
 `)
 
 // The root provider a resolver function for each API endpoint
 const root = {
-    hello: () => {
-        return `Hi Galaxy!`
+    quoteOfTheDay: () => {
+        return Math.random() < 0.5 ? 'Take easy' : 'Let\'s save the world'
+    },
+    random: () => {
+        return Math.random()
+    },
+    rollTwoDice: () => {
+        return [0, 1].map(_ => 1 + Math.floor(Math.random() * 4))
     },
 }
 
